@@ -13,7 +13,6 @@
 ml Miniconda3
 source activate transformer
 
-cd /home/yserrano/transformer/src-tags
 wandb login fbcf821ca3c41d77d2b07a61d25818130195bb27
 
 srun python -u main.py $SLURM_JOB_ID
