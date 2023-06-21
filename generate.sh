@@ -10,7 +10,9 @@
 #SBATCH	--mem=150G
 #SBATCH --exclude=node001,gpu002
 
+# Load required modules
 ml Miniconda3 CUDA/11.6.0
 source activate transformer
 
+# Run generation script
 srun python -u inference.py 29 1000 "weights/MDH-PLM/epoch_15.ckpt"
