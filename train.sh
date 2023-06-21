@@ -10,9 +10,12 @@
 #SBATCH	--mem=500G
 #SBATCH --exclude=node001,gpu002
 
+# Load required modules
 ml Miniconda3
 source activate transformer
 
+# Wandb login
 wandb login fbcf821ca3c41d77d2b07a61d25818130195bb27
 
+# Run training script
 srun python -u main.py $SLURM_JOB_ID
