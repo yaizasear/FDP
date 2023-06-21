@@ -12,5 +12,5 @@
 
 ## Description
 
-This repository contains Python code for all architectures, pretraining and fine-tuning carried out during the project, as well as pretrained model weights and data for downloading and generating the benchmarks. 
+This repository contains Python code for all architectures, pretraining and fine-tuning carried out during the project, as well as dataset examples for downloading and testing. 
 
