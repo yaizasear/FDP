@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=pre-wot
+#SBATCH --job-name=train
 #SBATCH --output=/home/yserrano/data/%x-%j.out
 #SBATCH --error=/home/yserrano/data/%x-%j.err
 #SBATCH --time=05-23:00:00
