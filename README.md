@@ -1,11 +1,16 @@
-<img src='https://github.com/yaizasear/FDP/logos/esci.png' style='position:absolute;top:0px;right:0px;' width='10%'/>
+<img src='logos/esci.png' style='position:absolute;top:0px;right:0px;' width='10%'/> &nbsp; &nbsp; <img src='logos/nbd.png' style='position:absolute;top:0px;right:0px;' width='15%'/>
 
 # Generating novel proteins with biological constraints using deep conditional language modeling
 
-- Author: Yaiza Serrano Aranda
-- Degree: Bachelor`s Degree in Bioinformatics (BDBI)
-- Center: ESCI-UPF
+## Final Degree Project
+- **Title:** Generating novel proteins with biological constraints using deep conditional language modeling
+- **Author:** Yaiza Serrano (yaiza.serrano@alum.esci.upf.edu)
+- **Degree:** Bachelor`s Degree in Bioinformatics (BDBI)
+- **Institution:** ESCI-UPF
+- **Course:** 2022-2023
+- **Date:** 21/06/2023
 
 ## Description
 
-Here...
+This repository contains Python code for all architectures, pretraining and fine-tuning carried out during the project, as well as pretrained model weights and data for downloading and generating the benchmarks. 
+
