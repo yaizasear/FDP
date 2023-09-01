@@ -1,6 +1,6 @@
-<img src='logos/esci.png' style='position:absolute;top:0px;right:0px;' width='10%'/> &nbsp; &nbsp; <img src='logos/nbd.png' style='position:absolute;top:0px;right:0px;' width='15%'/>
+<img src='logos/nbd.png' style='position:absolute;top:0px;right:0px;' width='15%'/>
 
-# Generating novel proteins with biological constraints using deep conditional language modeling
+# Efficient and accurate sequence generation with small-scale protein language models
 
 ## Final Degree Project
 - **Title:** Generating novel proteins with biological constraints using deep conditional language modeling
