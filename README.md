@@ -14,5 +14,5 @@
 
 This repository contains Python code for all architectures, pretraining and fine-tuning carried out during the project, as well as dataset examples for downloading and testing. 
 
-- The "train.sh" scrip provides code to pretrain and fine-tune a Transformer model using a SLURM enviornment.
-- The "generate.sh" scrip provides code to generate protein sequences from a pretrained Transformer model using a SLURM enviornment.
+- The "train.sh" script provides code to pretrain and fine-tune a Transformer model using a SLURM enviornment.
+- The "generate.sh" script provides code to generate protein sequences from a pretrained Transformer model using a SLURM enviornment.
