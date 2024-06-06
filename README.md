@@ -1,10 +1,10 @@
-<img src='logos/nbd.png' style='position:absolute;top:0px;right:0px;' width='15%'/>
+<img src='logos/nbd.png' style='position:absolute;top:0px;right:0px;' width='15%'/> <img src='logos/esci.png' style='position:absolute;top:0px;right:0px;' width='15%'/>
 
 # Efficient and accurate sequence generation with small-scale protein language models
 
 ## Final Degree Project
 - **Title:** Generating novel proteins with biological constraints using deep conditional language modeling
-- **Author:** Yaiza Serrano (yaiza.serrano@alum.esci.upf.edu)
+- **Author:** Yaiza Serrano (yaiza.serrano@alumni.esci.upf.edu)
 - **Degree:** Bachelor`s Degree in Bioinformatics (BDBI)
 - **Institution:** ESCI-UPF
 - **Course:** 2022-2023
