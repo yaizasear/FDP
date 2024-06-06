@@ -1,4 +1,4 @@
-<img src='logos/nbd.png' style='position:absolute;top:0px;right:0px;' width='15%'/> <img src='logos/esci.png' style='position:absolute;top:0px;right:0px;' width='15%'/>
+<img src='logos/esci.png' style='position:absolute;top:0px;right:0px;' width='10%'/> &nbsp; &nbsp; &nbsp; <img src='logos/nbd.png' style='position:absolute;top:0px;right:0px;' width='15%'/>
 
 # Efficient and accurate sequence generation with small-scale protein language models
 
