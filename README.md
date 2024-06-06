@@ -10,7 +10,7 @@
 - **Course:** 2022-2023
 - **Date:** 21/06/2023
 - **Link:** [Final Degree Project](http://hdl.handle.net/10230/59921)
-- 
+
 ## Description
 
 This repository contains Python code for all architectures, pretraining and fine-tuning carried out during the project, as well as dataset examples for downloading and testing. 
