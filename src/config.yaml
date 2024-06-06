@@ -1,13 +1,13 @@
 ---
 # Dataset specifications --------------------------------------
 
-data_dir: "/path/to/your/data-dir" # Location where data is stored
-pretrain_data: "/path/to/your/data-for-pretraining" # Name of the cloze dataset file for pretraining in compressed tsv format
+data_dir: "yaizasear/FDP/data" # Location where data is stored
+pretrain_data: "uniref_example.tar.gz" # Name of the cloze dataset file for pretraining in compressed tsv format
 pretrain_file_format: {"sequence": 1} # "EC(-.-.-)": 0
-train_data: "MDH/MDH_train.tar.gz" # Name of the train dataset file for fine-tuning in compressed tsv format
+train_data: "MDH_train.tar.gz" # Name of the train dataset file for fine-tuning in compressed tsv format
 train_file_format: {"sequence": 4} # MDH without TAGS; "upsampling": 1, "EC": 2
-val_data: "MDH/MDH_val.tar.gz" # Name of the validation dataset file for fine-tuning in compressed tsv format
-weights: "runs/2-pre-wt/weights/epoch_17.ckpt" # Weights path for finetuning
+val_data: "MDH_val.tar.gz" # Name of the validation dataset file for fine-tuning in compressed tsv format
+weights: "path/to/pretrained_weigths_if_any.ckpt" # Weights path for finetuning
 
 # Architecture details --------------------------------------
 
@@ -17,8 +17,8 @@ num_workers: 30 # Number of workers
 # Training hyperparams --------------------------------------
 
 pretrain: True # "True" if pretraining, "False" if fine-tuning
-epochs: 1500 # Number of steps to train
-batch_size: 256 # 256 or 224 Number of elements in input batch
+epochs: 1000 # Number of steps to train
+batch_size: 256 # Number of elements in input batch
 lr: 0.00001 # Learning rate
 lr_step_size: 200 # Period of learning rate decay
 gamma: 0.75 #  Multiplicative factor of learning rate decay
