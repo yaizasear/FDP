@@ -1,11 +1,11 @@
 ---
 # Dataset specifications --------------------------------------
 
-data_dir: "/home/yserrano/data" # Location where data is stored
-pretrain_data: "uniprot/data_and_tags.tar.gz" # Name of the cloze dataset file for pretraining in compressed tsv format
+data_dir: "/path/to/your/data-dir" # Location where data is stored
+pretrain_data: "/path/to/your/data-for-pretraining" # Name of the cloze dataset file for pretraining in compressed tsv format
 pretrain_file_format: {"sequence": 1} # "EC(-.-.-)": 0
 train_data: "MDH/MDH_train.tar.gz" # Name of the train dataset file for fine-tuning in compressed tsv format
-train_file_format: {"sequence": 4, "upsampling": 1, "EC": 2} # MDH with TAGS
+train_file_format: {"sequence": 4} # MDH without TAGS; "upsampling": 1, "EC": 2
 val_data: "MDH/MDH_val.tar.gz" # Name of the validation dataset file for fine-tuning in compressed tsv format
 weights: "runs/2-pre-wt/weights/epoch_17.ckpt" # Weights path for finetuning
 
