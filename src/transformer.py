@@ -43,8 +43,6 @@ def generate_padding_mask(x):
 class Transformer(nn.Module):
     '''
     Classic Transformer that both encodes and decodes.
-    
-    Prediction-time inference is done greedily.
     '''
 
     def __init__(self, num_classes: int, d_model: int = 512, 
