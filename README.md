@@ -1,10 +1,8 @@
-<img src='img/esci.png' style='position:absolute;top:0px;right:0px;' width='10%'/> &nbsp; &nbsp; &nbsp; <img src='img/nbd.png' style='position:absolute;top:0px;right:0px;' width='15%'/>
-
 # Generating Novel Proteins with Biological Constraints Using Deep Conditional Language Modeling
 
 This repository contains code and datasets related to my **Bachelor’s Thesis**, completed as part of the **Bachelor’s Degree in Bioinformatics (BDBI)** at **ESCI-UPF** in Barcelona, conducted at **Nostrum Biodiscovery** and awarded **Best Bachelor's Thesis of the 2022/2023 Course** 🏅. 
 
-> The full thesis can be accessed [here](http://hdl.handle.net/10230/59921).
+> 🔗 The full thesis can be accessed [here](http://hdl.handle.net/10230/59921).
 
 
 
@@ -17,15 +15,15 @@ This project focuses on **protein sequence generation** using deep learning mode
 
 Then, a **pLM** was pre-trained on a subset of the UniRef50 dataset using a masked language modeling (MLM) task. Fine-tuning on specific protein families, such as bacterial **MDH**, demonstrated that the model generates sequences that align with natural protein principles. We also explored adding **conditioning tags** to guide the generation process based on enzymatic reactions, although this provided minimal improvements.
 
-<!-- <div style="text-align: center;">
-    <img src='img/results.png' width='500px'/>
-</div> -->
-
-<div style="text-align: center;">
-    <img src='img/workflow.png' width='500px'/>
+<div align="center">
+  <img src='img/workflow.png' width="700"/> <!-- Adjust width as needed -->
 </div>
 
-<sub>**Figure 1. General scheme of the transfer learning-based pretraining and fine-tuning approach.** This approach leverages knowledge and representations learned from a large dataset to enhance performance on a specific task with a smaller, specific dataset.</sub>
+<sub>**Figure 1. General scheme of the transfer learning-based pretraining and fine-tuning approach.** This approach leverages knowledge and representations learned from a
+large dataset to enhance performance on a specific task with a smaller, specific dataset. Initially, a neural network is trained by randomly initializing the weights and optimizing
+them to minimize task-related errors. Upon achieving satisfactory training results, the network weights are saved. To train a new network for a different task and dataset,
+instead of starting from random initialization, the saved weights from the previous network are used as the initial values. In this initialization process, the first network is the
+pre-trained network, and the second network undergoes fine-tuning..</sub>
 
 ## ⚙️ Setup
 
@@ -85,3 +83,13 @@ Additional options include:
 ## 📖 Extended Work and Publication
 
 The work initiated in this project was extended at **Nostrum Biodiscovery** and contributed to the publication of *"Efficient and Accurate Sequence Generation with Small-Scale Protein Language Models."* This paper introduces a **Small-Scale Protein Language Model (SS-pLM)**, which significantly reduces computational requirements by using fewer parameters and a smaller dataset, while achieving performance comparable to larger models in protein sequence generation. Explore the full publication [here](https://doi.org/10.1101/2023.08.04.551626) 📘!
+
+---
+
+<div style="background-color: #f0f0f0; padding: 50px; border-radius: 10px; text-align: center;">
+  <h3>Acknowledgments</h3>
+  <img src="img/esci.png" alt="ESCI-UPF Logo" width="100" style="margin-right: 50px;"/> <!-- Increased margin-right for more space -->
+  <img src="img/nbd.png" alt="Nostrum Biodiscovery Logo" width="160" style="margin-left: 30px;"/> <!-- Optional margin-left -->
+</div>
+
+
