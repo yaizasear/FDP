@@ -16,7 +16,7 @@ This project focuses on **protein sequence generation** using deep learning mode
 Then, a **pLM** was pre-trained on a subset of the UniRef50 dataset using a masked language modeling (MLM) task. Fine-tuning on specific protein families, such as bacterial **MDH**, demonstrated that the model generates sequences that align with natural protein principles. We also explored adding **conditioning tags** to guide the generation process based on enzymatic reactions, although this provided minimal improvements.
 
 <div align="center">
-  <img src='img/workflow.png' width="700"/> <!-- Adjust width as needed -->
+  <img src='img/workflow.png' width="600"/> <!-- Adjust width as needed -->
 </div>
 
 <sub>**Figure 1. General scheme of the transfer learning-based pretraining and fine-tuning approach.** This approach leverages knowledge and representations learned from a
@@ -88,8 +88,8 @@ The work initiated in this project was extended at **Nostrum Biodiscovery** and 
 
 <div style="background-color: #f0f0f0; padding: 50px; border-radius: 10px; text-align: center;">
   <h3>Acknowledgments</h3>
-  <img src="img/esci.png" alt="ESCI-UPF Logo" width="100" style="margin-right: 50px;"/> <!-- Increased margin-right for more space -->
-  <img src="img/nbd.png" alt="Nostrum Biodiscovery Logo" width="160" style="margin-left: 30px;"/> <!-- Optional margin-left -->
+  <img src="img/esci.png" alt="ESCI-UPF Logo" width="80" style="margin-right: 100px;"/> 
+  <img src="img/nbd.png" alt="Nostrum Biodiscovery Logo" width="140" style="margin-left: 100px;"/> 
 </div>
 
 
