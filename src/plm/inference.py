@@ -15,9 +15,9 @@ def beam_search(model, input_sequence, vocab, beam_width, device='cuda'):
     candidates = [[input_sequence, 0.0]]
     output_text = []
     input_sequence = torch.LongTensor([input_sequence]).to(device)
-    encoded_x = model.encode(input_sequence) # (Sx, B, E)
+    encoded_x = model.encode(input_sequence) 
     
-    for i in range(512): # 330 sequence length
+    for i in range(512):
         new_candidates = []
         for candidate, score in candidates:
             input_sequence = torch.LongTensor([candidate]).to(device)
@@ -45,7 +45,7 @@ def beam_search(model, input_sequence, vocab, beam_width, device='cuda'):
             elif index != TOKENS.index(b'START') and index != TOKENS.index(b'END'):
                 sequence += chr(vocab[index])
             elif index == TOKENS.index(b'END'):
-                break # Stop when END token is generated
+                break 
         output_text.append(sequence)
     return output_text
 
@@ -66,21 +66,21 @@ def main(args, config):
     model, optimizer = fabric.setup(model, optimizer)
 
     # Load pretrained model
-    weights_path = os.path.join(config["data_dir"], args.weights_path)
+    if not os.path.exists(args.checkpoint):
+        raise FileNotFoundError(f"Checkpoint not found: {args.checkpoint}")
     state = {"model": model, "optimizer": optimizer}
-    fabric.load(weights_path, state)
+    fabric.load(args.checkpoint, state)
 
     # Generate sequences
-    num_sequences = 1
-    input_sequence = [0] # START  token
+    input_sequence = [0] 
     output_sequences = []
-    fabric.print("Generating from", args.weights_path, "...\n")
-    for _ in range(num_sequences):
+    fabric.print("Generating from", args.checkpoint, "...\n")
+    for _ in range(args.n):
         sequences = beam_search(model, input_sequence, TOKENS, args.k)
         output_sequences.extend(sequences)
     
     # Writing sequences to FASTA file
-    output_file = os.path.join(config["data_dir"], "generated.fasta")
+    output_file = os.path.join(config["out_dir"], "generated.fasta")
     with open(output_file, "wt") as f:
         for i, sequence in enumerate(output_sequences, start=1):
             identifier = f"Sequence_{i}"
@@ -90,9 +90,10 @@ def main(args, config):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("num_tokens", type=int, help="number of tokens of the foundation model")
-    parser.add_argument("k", type=int, help="beam width")
-    parser.add_argument("weights_path", type=str, help="embbeding weights path")
+    parser.add_argument("-n", type=int, required=True, help="number of sequences to generate")
+    parser.add_argument("-checkpoint", type=str, required=True, help="model checkpoint path")
+    parser.add_argument("-k", type=int, default=3, help="beam width")
+    parser.add_argument("-num_tokens", default=29, type=int, help="number of tokens of the model")
     if len(sys.argv)==1:
         parser.print_help(sys.stderr)
         sys.exit(1)

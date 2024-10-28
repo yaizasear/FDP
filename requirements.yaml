@@ -1,0 +1,13 @@
+name: plm
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.9
+  - pytorch
+  - numpy
+  - tqdm
+  - matplotlib
+  - wandb
+  - lightning
+  - deepspeed

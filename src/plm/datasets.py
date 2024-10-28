@@ -10,9 +10,9 @@ class ProteinSequenceTokenizer(object):
     def __init__(self, sequence_cache, tags_cache, pad_length=None, masking=False):
         self.masking = masking
         self.pad_length = self.get_pad_length(sequence_cache, pad_length)
-        self.base2index = dict((base, idx) for idx, base in enumerate(TOKENS)) # 29 tokens (0-28)
+        self.base2index = dict((base, idx) for idx, base in enumerate(TOKENS))
         self.num_tokens = len(set(self.base2index.values()))
-        self.tag2index = dict((ec, idx) for idx, ec in enumerate(EC_NUMBERS, self.num_tokens)) # dict((tag, idx) for idx, tag in enumerate(np.unique(list(tags_cache.values())), self.num_tokens))
+        self.tag2index = dict((tag, idx) for idx, tag in enumerate(np.unique(list(tags_cache.values())), self.num_tokens))
         self.num_tokens = self.num_tokens + len(self.tag2index)
         self.noise_distribution = (self.get_noise_distribution(sequence_cache) if masking else None)
 
@@ -58,7 +58,7 @@ class ProteinSequenceTokenizer(object):
         sequence = self.pad(sequence, self.pad_length)
         if tags is not None:
             tags = [ self.tag2index[tag.decode()] for tag in tags ]
-            sequence = tags + sequence # Add tag always, even when no START
+            sequence = tags + sequence 
         if self.masking:
             sequence = self.mask(sequence)
         else:

@@ -2,7 +2,7 @@ import os
 import sys
 import time
 import yaml
-import argparse
+import random
 import numpy as np
 from torch.optim import Adam
 from transformer import Transformer
@@ -10,19 +10,19 @@ from lightning.fabric import Fabric
 from torch.nn import CrossEntropyLoss
 from datasets import ProteinSequenceDataset
 from torch.optim.lr_scheduler import StepLR
-from train import train, validate, cloze_grad
+from train import train, validate, MLMpretrain
 from torch import set_float32_matmul_precision
 from lightning.pytorch.loggers import WandbLogger
 from torch.utils.data import DataLoader, SequentialSampler
 
 
-def main(args, config):
+def main(config):
     set_float32_matmul_precision('medium')
 
     # Init Wandb and Fabric
     wandb_logger = WandbLogger(
-        project="pretraining",
-        name="pretraining",
+        project= config["wandb_project"],
+        name= config["wandb_name"],
         config={
         "num_workers": config["num_workers"],
         "batch_size": config["batch_size"]})
@@ -36,26 +36,25 @@ def main(args, config):
     fabric.launch()
 
     # Define task
-    pretrain = config["pretrain"] # "True" if pretraining, "False" if fine-tuning
+    pretrain = config["pretrain"]
     model_name = "pretraining" if pretrain else "finetuning"
-    directory_path = os.path.join(config["data_dir"], model_name + "-" + args.jobid)
+    random_id = str(random.randint(100000, 999999))
+    directory_path = os.path.join(config["out_dir"], model_name + "-" + random_id)
     if fabric.global_rank == 0:
         os.makedirs(directory_path)
 
     # Datasets and dataloaders
     upsampling = not pretrain
-    train_data = config["pretrain_data"] if pretrain else config["train_data"]
+    train_path = config["pretrain_data"] if pretrain else config["train_data"]
     file_format = config["pretrain_file_format"] if pretrain else config["train_file_format"]
-    train_path = os.path.join(config["data_dir"], train_data)
     train_dataset = ProteinSequenceDataset(train_path, file_format, upsampling=upsampling, masking=pretrain)
-    num_tokens = train_dataset.num_tokens # Change when tags to 370?
+    num_tokens = train_dataset.num_tokens 
     pad_length = train_dataset.pad_length
     train_sampler = SequentialSampler(train_dataset)
     train_dataloader = DataLoader(train_dataset, batch_size=config["batch_size"], sampler=train_sampler, 
                                   drop_last=True, num_workers=config["num_workers"], pin_memory=True)
     if not pretrain:
-        val_path = os.path.join(config["data_dir"], config["val_data"])
-        val_dataset = ProteinSequenceDataset(val_path, file_format, pad_length, upsampling=upsampling, masking=pretrain)
+        val_dataset = ProteinSequenceDataset(config["val_data"], file_format, pad_length, upsampling=upsampling, masking=pretrain)
         val_sampler = SequentialSampler(val_dataset)
         val_dataloader = DataLoader(val_dataset, batch_size=config["batch_size"], sampler=val_sampler, num_workers=30, pin_memory=True)
         train_dataloader, val_dataloader = fabric.setup_dataloaders(train_dataloader, val_dataloader)
@@ -63,9 +62,9 @@ def main(args, config):
         train_dataloader = fabric.setup_dataloaders(train_dataloader)
 
     # Show metrics
-    fabric.print("Conditional Protein Language Model (", args.jobid, ")\n", "-" * 89)
+    fabric.print("Protein Language Model (", random_id, ")\n", "-" * 89)
     fabric.print("Training dataset: ", len(train_dataset), "sequences")
-    fabric.print("Training batches: ", len(train_dataloader) * config["devices"]) # * nodes if specified
+    fabric.print("Training batches: ", len(train_dataloader) * config["devices"]) 
     if not pretrain:
         fabric.print("Validation dataset: ", len(val_dataset), "sequences")
         fabric.print("Validation batches: ", len(val_dataloader))
@@ -83,9 +82,8 @@ def main(args, config):
 
     # Load pretrained weights (if any)
     if not pretrain:
-        weights_path = os.path.join(config["data_dir"], config["weights"])
         state = {"model": model, "optimizer": optimizer}
-        fabric.load(weights_path, state)
+        fabric.load(config["weights"], state)
 
     # Save initial embedding weights
     initial_weights = model.embedding.weight
@@ -102,7 +100,7 @@ def main(args, config):
         epoch_start_time = time.time()
 
         if pretrain:
-            train_loss, train_acc = cloze_grad(fabric, model, criterion, optimizer, train_dataloader)
+            train_loss, train_acc = MLMpretrain(fabric, model, criterion, optimizer, train_dataloader)
             fabric.log_dict({"epoch": epoch, "train_loss": train_loss, "train_acc": train_acc})
         else:
             train_loss = train(fabric, model, criterion, optimizer, train_dataloader)
@@ -130,12 +128,6 @@ def main(args, config):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument("jobid", type=str, help="job id (e.g. 123456)")
-    if len(sys.argv)==1:
-        parser.print_help(sys.stderr)
-        sys.exit(1)
-    args = parser.parse_args()
-    with open(sys.path[0] + '/config.yaml') as f:
+    with open('./configs/plm_config.yaml') as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
-    main(args, config)
+    main(config)

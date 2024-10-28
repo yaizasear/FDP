@@ -1,0 +1,38 @@
+--- 
+# Dataset specifications --------------------------------------
+
+out_dir: "./out" # Location where data will be stored
+train_data: "./data/mdh_train_subset.tar.gz" # Dataset to use for training
+val_data: "./data/mdh_val_subset.tar.gz" # Dataset to use for validation
+
+# Training hyperparams ----------------------------------------
+
+batch_size: 64 # Number of elements in input batch
+epochs: 1500 # Number of steps to train
+z_dim: 128 # Dimensionality of latent code z
+max_d_model: 512 # Maximum sequence length
+num_layers: 6 # Number of layers of the feed-forward neural network
+strides: [1, 2] # Strides of the feed-forward neural network
+dilation_rate: 1 # The rate of the dilation
+gf_dim: 48 # Dimensionality of gf
+df_dim: 36 # Dimensionality of df
+kernel_height: 3 # The height of the kernel
+kernel_width: 3 # The width of the kernel
+lr_g: 0.0001 # Starting learning rate of the generator for adam
+lr_d: 0.00001 # Starting learning rate of the discriminator for adam
+lr_step_size: 200 # Period of learning rate decay
+lr_gamma: 0.3 #  Multiplicative factor of learning rate decay
+beta1: 0.5 # First momentum term of adam
+beta2: 0.9 # Second momentum term of adam
+
+# Blast specifications ----------------------------------------
+
+steps_for_blast: 250 # Number of steps between blasting fake protein
+blast_percentage: 0.1 # Percentage that will reduce the generator loss when the generated proteins are within the identity thresholds
+min_identity: 65 # Minimum identity generated proteins must have
+max_identity: 85 # Maximum identity generated proteins must have
+
+# Input characteristics ---------------------------------------
+
+num_classes: 21 # Number of different tokens (20 aa + pad token)
+enzyme_class: "1.1.1.37" # Enzyme class

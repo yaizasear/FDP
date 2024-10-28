@@ -1,18 +1,20 @@
 ---
 # Dataset specifications --------------------------------------
 
-data_dir: "yaizasear/FDP/data" # Location where data is stored
-pretrain_data: "uniref_example.tar.gz" # Name of the cloze dataset file for pretraining in compressed tsv format
+out_dir: "./out" # Location where data will be stored
+pretrain_data: "./data/uniref_example.tar.gz" # Name of the dataset file for pretraining in compressed tsv format
 pretrain_file_format: {"sequence": 1} # "EC(-.-.-)": 0
-train_data: "MDH_train.tar.gz" # Name of the train dataset file for fine-tuning in compressed tsv format
-train_file_format: {"sequence": 4} # MDH without TAGS; "upsampling": 1, "EC": 2
-val_data: "MDH_val.tar.gz" # Name of the validation dataset file for fine-tuning in compressed tsv format
+train_data: "./data/mdh_train_subset.tar.gz" # Name of the train dataset file for fine-tuning in compressed tsv format
+train_file_format: {"sequence": 2} # "upsampling": 0, "EC(-.-.-)": 1
+val_data: "./data/mdh_val_subset.tar.gz" # Name of the validation dataset file for fine-tuning in compressed tsv format
 weights: "path/to/pretrained_weigths_if_any.ckpt" # Weights path for finetuning
+wandb_project: project_name # Project name for Wandb logging
+wandb_name: experiment_name # Name fo the experiment for Wandb logging
 
 # Architecture details --------------------------------------
 
 devices: 4 # Number of devices
-num_workers: 30 # Number of workers
+num_workers: 28 # Number of workers
 
 # Training hyperparams --------------------------------------
 

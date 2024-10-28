@@ -7,7 +7,7 @@ def train(fabric, model, criterion, optimizer, train_dataloader):
     model.train()
     total_loss = 0.
     for batch in tqdm(train_dataloader):
-        trg = batch[:,:-1] # Shifted right
+        trg = batch[:,:-1] 
         expected = batch[:,1:]
         logits = model(batch, trg)
         loss = criterion(logits, expected)
@@ -22,24 +22,24 @@ def validate(model, criterion, val_dataloader):
     total_loss = 0.
     with torch.no_grad():
         for batch in tqdm(val_dataloader):
-            trg = batch[:,:-1] # Shifted right
+            trg = batch[:,:-1] 
             expected = batch[:,1:]
             logits = model(batch, trg)
             loss = criterion(logits, expected)
             total_loss += loss.item()
     return total_loss / len(val_dataloader)
 
-def cloze_grad(fabric, model, criterion, optimizer, train_dataloader):
+def MLMpretrain(fabric, model, criterion, optimizer, train_dataloader):
     model.train()
     train_loss, train_acc, total_unmasked = 0, 0, 0
     for batch in tqdm(train_dataloader):
         src = batch[:,0]
-        trg = batch[:,0,:-1] # batch[:,1,:-1] # Shifted right
+        trg = batch[:,0,:-1] 
         mask = batch[:,1,1:] < TOKENS.index(b'MASK')
-        expected = batch[:,1,1:][mask] # (n)
-        n = mask.float().sum().item() # unmasked
+        expected = batch[:,1,1:][mask] 
+        n = mask.float().sum().item() 
         total_unmasked += n
-        logits = model(src, trg).permute(0, 2, 1)[mask]  # (B, Sy, C) -> (n, C)
+        logits = model(src, trg).permute(0, 2, 1)[mask]  
         loss = criterion(logits, expected)
         fabric.backward(loss)
         optimizer.step()
