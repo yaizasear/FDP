@@ -7,7 +7,7 @@ pretrain_file_format: {"sequence": 1} # "EC(-.-.-)": 0
 train_data: "./data/mdh_train_subset.tar.gz" # Name of the train dataset file for fine-tuning in compressed tsv format
 train_file_format: {"sequence": 2} # "upsampling": 0, "EC(-.-.-)": 1
 val_data: "./data/mdh_val_subset.tar.gz" # Name of the validation dataset file for fine-tuning in compressed tsv format
-weights: "path/to/pretrained_weigths_if_any.ckpt" # Weights path for finetuning
+weights: Null # Weights path for finetuning
 wandb_project: project_name # Project name for Wandb logging
 wandb_name: experiment_name # Name fo the experiment for Wandb logging
 
